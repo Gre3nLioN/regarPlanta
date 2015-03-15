@@ -1,21 +1,8 @@
-/*
- * TimeAlarmExample.pde
- *
- * This example calls alarm functions at 8:30 am and at 5:45 pm (17:45)
- * and simulates turning lights on at night and off in the morning
- * A weekly timer is set for Saturdays at 8:30:30
- *
- * A timer is called every 15 seconds
- * Another timer is called once only after 10 seconds
- *
- * At startup the time is set to Jan 1 2011  8:29 am
- */
- 
 #include <Time.h>
 #include <TimeAlarms.h>
 
 int buzzer =9;
-#define PIN_WATER 43
+#define PIN_WATER 43 //Rele pin
 
 void setup()
 {
@@ -23,11 +10,11 @@ void setup()
   
   setTime(1,10,0,1,1,11); // set time to Saturday 8:29:00am Jan 1 2011
   // create the alarms 
-  Alarm.alarmRepeat(8,30,0, MorningAlarm);  // 8:30am every day
-  Alarm.alarmRepeat(8,31,0,CloseMorningAlarm);  // 5:45pm every day 
+  Alarm.alarmRepeat(8,30,0, MorningAlarm);  // 8:30 every day
+  Alarm.alarmRepeat(8,31,0,CloseMorningAlarm);  // 8:31 every day 
   
-  Alarm.alarmRepeat(20,30,30, NightAlarm);  // 8:30am every day
-  Alarm.alarmRepeat(20,31,0,CloseNightAlarm);  // 5:45pm every day 
+  Alarm.alarmRepeat(20,30,30, NightAlarm);  // 20:30 every day
+  Alarm.alarmRepeat(20,31,0,CloseNightAlarm);  // 20:31 every day 
  
   Alarm.timerRepeat(15, Repeats);            // timer for every 15 seconds    
   pinMode(PIN_WATER,OUTPUT);
@@ -41,23 +28,23 @@ void  loop(){
 
 // functions to be called when an alarm triggers:
 void MorningAlarm(){
-  Serial.println("Alarm: - turn lights off");   
+  Serial.println("Alarm: - turn rele off");   
   digitalWrite(PIN_WATER,HIGH); 
 }
 
 void CloseMorningAlarm(){
-  Serial.println("Alarm: - turn lights on"); 
+  Serial.println("Alarm: - turn rele on"); 
   digitalWrite(PIN_WATER,LOW);  
 }
 
 // functions to be called when an alarm triggers:
 void NightAlarm(){
-  Serial.println("Alarm: - turn lights off");   
+  Serial.println("Alarm: - turn rele off");   
   digitalWrite(PIN_WATER,HIGH);
 }
 
 void CloseNightAlarm(){
-  Serial.println("Alarm: - turn lights on"); 
+  Serial.println("Alarm: - turn rele on"); 
   digitalWrite(PIN_WATER,LOW);  
 }
 
